@@ -93,6 +93,7 @@ def depthFirstSearch(problem: SearchProblem):
     my_stack.push(problem.getStartState())
 
     while not goal_found:
+        moves.append(my_stack.pop)
         node = my_stack.pop()
     
         if(problem.isGoalState(node)):
@@ -103,7 +104,6 @@ def depthFirstSearch(problem: SearchProblem):
             for nextState, action, cost in tuple:
                 if(not ((nextState,action, cost) in visited) or ((nextState,action,cost) in my_stack)):
                     my_stack.push((nextState,action,cost)[0])
-                    visited.append(action)
     
     return moves
 
