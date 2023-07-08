@@ -90,22 +90,26 @@ def depthFirstSearch(problem: SearchProblem):
     moves = []
     visited = []
     goal_found = False
-    my_stack.push(problem.getStartState())
+    begin = problem.getStartState()
+    my_stack.push(begin)
 
     while not goal_found:
-        moves.append(my_stack.pop)
         node = my_stack.pop()
-    
+        path = node[1]
+        tuple = problem.getSuccessors(node)
+
         if(problem.isGoalState(node)):
             goal_found = True
+            return path
         else:
             visited.append(node)
-            tuple = problem.getSuccessors(node)
-            for nextState, action, cost in tuple:
+            for (nextState, action, cost) in tuple:
                 if(not ((nextState,action, cost) in visited) or ((nextState,action,cost) in my_stack)):
-                    my_stack.push((nextState,action,cost)[0])
-    
-    return moves
+                    my_stack.push((nextState, action, cost)[0])
+                    moves.append(action)
+                    print(moves)
+
+    print(visited)
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
