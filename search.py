@@ -87,49 +87,51 @@ def depthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     "*** YOUR CODE HERE ***"
     my_stack = util.Stack()
-    moves = []
     visited = []
-    goal_found = False
+    path = []
     begin = problem.getStartState()
-    my_stack.push(begin)
+    my_stack.push((begin, path, visited))
+    while not my_stack.isEmpty():
+        node, action, visited = my_stack.pop()
 
-    while not goal_found:
-        node = my_stack.pop()
-        path = node[1]
-        tuple = problem.getSuccessors(node)
-
-        if(problem.isGoalState(node)):
-            goal_found = True
+        if problem.isGoalState(node):
             return path
-        else:
-            visited.append(node)
-            for (nextState, action, cost) in tuple:
-                if(not ((nextState,action, cost) in visited) or ((nextState,action,cost) in my_stack)):
-                    my_stack.push((nextState, action, cost)[0])
-                    moves.append(action)
-                    print(moves)
+        
+        tuple = problem.getSuccessors(node)
+        for i in tuple:
+            if i[0] not in visited:
+                path = action + [i[1]]
+                print(i[0], path, visited)
+                my_stack.push((i[0], path, visited + [node]))
+            else:
+                print(i[0], visited)
+    print(path)
 
-    print(visited)
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
     my_queue = util.Queue()
+    visited = []
+    path = []
+    begin = problem.getStartState()
+    my_queue.push((begin, path, visited))
+    while not my_queue.isEmpty():
+        node, action, visited = my_queue.pop()
 
-    visited = {}
-    frontier = {}
-    goal_found = False
+        if problem.isGoalState(node):
+            return path
+        
+        tuple = problem.getSuccessors(node)
+        for (nextState, action, cost) in tuple:
+            if (nextState, action, cost) not in visited:
+                path = action + [action]
+                print(nextState, path, visited)
+                my_queue.push((nextState, path, visited + [node]))
+            else:
+                print(nextState, visited)
+    print(path)
 
-    while not goal_found:
-        node = my_queue.pop()
-    
-        if(g(node)):
-            goal_found = true
-        else:
-            visited.add(node)
-            for child in node.children:
-                if(not (visited.contains(child) or my_queue.contains(child))):
-                    my_queue.push(item)
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
