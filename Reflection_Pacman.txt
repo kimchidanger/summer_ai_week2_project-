@@ -1,0 +1,3 @@
+The project was really difficult when first getting it, but after breaking it down and realizing that the pseudocode was practically the same thing as the real things helped me to work more efficiently.
+After some googling, I was able to figure out how to handle DFS, and there were no huge problems along the way.
+When I first copied over the DFS code into the BFS section, it didn't work as intended, so after asking some classmates and using google, I resorted to making a somewhat new and different code that introduced a new set of variables.
